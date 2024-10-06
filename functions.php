@@ -5,9 +5,14 @@ define('THEME_DIR', get_template_directory());
 class Tutorial_Theme{
     private static $instance = null;
 
-    //this function 
+    //this function starts everything
     private function __construct(){
-        
+        include THEME_DIR . '/includes/categories.php';
+        // action hook
+        add_action('wp_enqueue_scripts',[$this, 'enqueue_styles']);
+    }
+    public function enqueue_styles(){
+        wp_enqueue_style('tutorial-theme', get_stylesheet_uri());
     }
     public static function get_instance(){
         if(null == self::$instance){
